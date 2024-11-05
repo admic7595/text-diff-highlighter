@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>テキスト比較ツール</title>
+    <style>
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .different { background-color: yellow; }
+        textarea { width: 100%; height: 150px; margin: 10px 0; }
+        .result { border: 1px solid #ccc; padding: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>テキスト比較ツール</h1>
+        <form method="POST">
+            <div>
+                <label>テキスト1:</label>
+                <textarea name="text1" required></textarea>
+            </div>
+            <div>
+                <label>テキスト2:</label>
+                <textarea name="text2" required></textarea>
+            </div>
+            <button type="submit">比較する</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h2>比較結果:</h2>
+            <div>
+                テキスト1: 
+                {% for char in result.text1 %}
+                    <span {% if char.different %}class="different"{% endif %}>
+                        {{char.char if char.char else '　'}}
+                    </span>
+                {% endfor %}
+            </div>
+            <div>
+                テキスト2:
+                {% for char in result.text2 %}
+                    <span {% if char.different %}class="different"{% endif %}>
+                        {{char.char if char.char else '　'}}
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
